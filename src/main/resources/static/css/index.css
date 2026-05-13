@@ -1,0 +1,17 @@
+body {
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: #d9534f; /* Warna merah bakso */
+}
+
+.btn-bayar {
+  background-color: #5cb85c;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>POS Bakso</title>
+    <!-- Jalur otomatis mengarah ke folder static -->
+    <link rel="stylesheet" th:href="@{/css/index.css}" />
+  </head>
+  <body>
+    <h1 th:text="${title}">Judul Default</h1>
+    <h3>Daftar Menu:</h3>
+    <ul>
+      <li th:each="m : ${menus}" th:text="${m}">Menu Bakso Enak</li>
+    </ul>
+
+    <div th:each="m : ${daftarMenu}">
+      <p>Nama: <span th:text="${m.nama}"></span></p>
+      <p>Harga: <span th:text="${m.harga}"></span></p>
+    </div>
+
+    <hr />
+    <h3>Total Bayar: <span th:text="${total}"></span></h3>
+    <!-- Panggil JS di sini -->
+    <script th:src="@{/js/script.js}"></script>
+  </body>
+</html>
