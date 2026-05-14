@@ -1,26 +1,98 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
+<head>
     <meta charset="UTF-8" />
-    <title>POS Bakso</title>
-    <!-- Jalur otomatis mengarah ke folder static -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS Bakso Tyga Sapi - Kasir</title>
     <link rel="stylesheet" th:href="@{/css/index.css}" />
-  </head>
-  <body>
-    <h1 th:text="${title}">Judul Default</h1>
-    <h3>Daftar Menu:</h3>
-    <ul>
-      <li th:each="m : ${menus}" th:text="${m}">Menu Bakso Enak</li>
-    </ul>
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <h1>POS Bakso Tyga Sapi</h1>
+        </div>
+        <nav class="nav-links">
+            <a href="#" class="active">Menu Kasir</a>
+            <a href="laporan.html">Laporan Transaksi</a>
+        </nav>
+    </header>
 
-    <div th:each="m : ${daftarMenu}">
-      <p>Nama: <span th:text="${m.nama}"></span></p>
-      <p>Harga: <span th:text="${m.harga}"></span></p>
-    </div>
+    <main class="main-container">
+        
+        <section class="menu-section">
+            <h2>Daftar Menu</h2>
+            <div class="menu-grid">
+                
+                <div class="menu-card">
+                    <div class="menu-info">
+                        <h3>Bakso Iga</h3>
+                        <p class="harga">Rp 40.000</p>
+                        <p class="stok">Stok: 15</p>
+                    </div>
+                    <button class="btn-tambah">+ Tambah</button>
+                </div>
 
-    <hr />
-    <h3>Total Bayar: <span th:text="${total}"></span></h3>
-    <!-- Panggil JS di sini -->
-    <script th:src="@{/js/script.js}"></script>
-  </body>
+                <div class="menu-card">
+                    <div class="menu-info">
+                        <h3>Bakso Iga Istimewah</h3>
+                        <p class="harga">Rp 52.000</p>
+                        <p class="stok">Stok: 10</p>
+                    </div>
+                    <button class="btn-tambah">+ Tambah</button>
+                </div>
+
+                <div class="menu-card">
+                    <div class="menu-info">
+                        <h3>Es Teh Manis</h3>
+                        <p class="harga">Rp 5.000</p>
+                        <p class="stok">Stok: 50</p>
+                    </div>
+                    <button class="btn-tambah">+ Tambah</button>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="cart-section">
+            <h2>Pesanan Saat Ini</h2>
+            
+            <div class="cart-items">
+                <div class="cart-item">
+                    <div class="item-desc">
+                        <h4>Bakso Iga</h4>
+                        <p>Rp 40.000 x 2</p>
+                    </div>
+                    <div class="item-subtotal">Rp 80.000</div>
+                </div>
+
+                <div class="cart-item">
+                    <div class="item-desc">
+                        <h4>Es Teh Manis</h4>
+                        <p>Rp 5.000 x 2</p>
+                    </div>
+                    <div class="item-subtotal">Rp 10.000</div>
+                </div>
+            </div>
+
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span>Rp 90.000</span>
+                </div>
+                <div class="summary-row total">
+                    <span><strong>Total Bayar</strong></span>
+                    <span><strong>Rp 90.000</strong></span>
+                </div>
+            </div>
+
+            <div class="cart-actions">
+                <button class="btn-batal">Batal</button>
+                <button class="btn-bayar">Proses Bayar</button>
+            </div>
+        </section>
+
+    </main>
+
+    <script th:src="@{/js/index.js}"></script>
+</body>
 </html>

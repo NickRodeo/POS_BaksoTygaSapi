@@ -1,17 +1,249 @@
-body {
-  background-color: #f4f4f4;
-  font-family: Arial, sans-serif;
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-h1 {
-  color: #d9534f; /* Warna merah bakso */
+body {
+    background-color: #fdfdfd;
+    color: #333;
+}
+
+/* Navbar Styling */
+.navbar {
+    background-color: #b30000; /* Merah Tua */
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.logo h1 {
+    font-size: 24px;
+    color: #ffcc00; /* Kuning */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    background-color: #ffcc00;
+    color: #b30000;
+}
+
+.nav-links a.active {
+    background-color: #ffcc00;
+    color: #b30000;
+    font-weight: bold;
+}
+
+/* Main Container Layout */
+.main-container {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+    height: calc(100vh - 70px);
+}
+
+/* Menu Section (Kiri) */
+.menu-section {
+    flex: 3;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    overflow-y: auto;
+}
+
+.menu-section h2 {
+    margin-bottom: 20px;
+    color: #b30000;
+    border-left: 5px solid #ffcc00;
+    padding-left: 10px;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.menu-card {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.menu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+.menu-info h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.harga {
+    color: #b30000;
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.stok {
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+.btn-tambah {
+    background-color: #ffcc00;
+    color: #b30000;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-tambah:hover {
+    background-color: #e6b800;
+}
+
+/* Cart Section (Kanan) */
+.cart-section {
+    flex: 1;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    border-top: 5px solid #b30000;
+}
+
+.cart-section h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+.cart-items {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed #ddd;
+}
+
+.item-desc h4 {
+    font-size: 15px;
+}
+
+.item-desc p {
+    font-size: 13px;
+    color: #666;
+}
+
+.item-subtotal {
+    font-weight: bold;
+    color: #b30000;
+}
+
+/* Summary Area */
+.cart-summary {
+    padding-top: 15px;
+    border-top: 2px solid #eee;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.summary-row.total {
+    font-size: 18px;
+    color: #b30000;
+    margin-top: 5px;
+    padding-top: 5px;
+}
+
+/* Action Buttons */
+.cart-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn-batal {
+    flex: 1;
+    background: #eee;
+    color: #555;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 .btn-bayar {
-  background-color: #5cb85c;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
+    flex: 2;
+    background: #b30000;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.btn-bayar:hover {
+    background-color: #8b0000;
+    box-shadow: 0 4px 8px rgba(179, 0, 0, 0.3);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #b30000;
 }
