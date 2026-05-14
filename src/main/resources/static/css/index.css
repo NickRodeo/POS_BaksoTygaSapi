@@ -247,3 +247,16 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #b30000;
 }
+
+/* Styling untuk logo gambar */
+.logo-img {
+    height: 70px; /* Sesuaikan tinggi logo dengan tinggi navbar */
+    width: auto;  /* Menjaga proporsi gambar agar tidak gepeng */
+    display: block;
+}
+
+/* Opsional: Jika ingin memberi sedikit jarak atau efek pada logo */
+.logo {
+    display: flex;
+    align-items: center;
+}
