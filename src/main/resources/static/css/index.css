@@ -248,15 +248,34 @@ body {
     background: #b30000;
 }
 
-/* Styling untuk logo gambar */
+/* --- Tambahan Styling untuk Gambar --- */
+
+/* Mengatur ukuran logo di Navbar */
 .logo-img {
-    height: 70px; /* Sesuaikan tinggi logo dengan tinggi navbar */
-    width: auto;  /* Menjaga proporsi gambar agar tidak gepeng */
-    display: block;
+    height: 40px; /* Sesuaikan ukuran logo */
+    width: auto;
+    object-fit: contain;
 }
 
-/* Opsional: Jika ingin memberi sedikit jarak atau efek pada logo */
-.logo {
-    display: flex;
-    align-items: center;
+/* Mengatur gambar menu agar pas di dalam kartu */
+.menu-img {
+    width: 100%;
+    height: 150px; /* Tinggi gambar dibuat seragam */
+    object-fit: cover; /* Agar gambar tidak gepeng */
+    border-radius: 8px 8px 0 0; /* Membuat sudut atas melengkung */
+    margin-bottom: 15px;
+}
+
+/* Sedikit perbaikan pada menu-card agar paddingnya pas dengan gambar */
+.menu-card {
+    padding: 0; /* Menghilangkan padding utama agar gambar menempel ke tepi */
+    overflow: hidden;
+}
+
+.menu-info, .btn-tambah {
+    margin: 0 15px; /* Memberikan jarak teks dan tombol ke tepi kartu */
+}
+
+.btn-tambah {
+    margin-bottom: 15px;
 }
