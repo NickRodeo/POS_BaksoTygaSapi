@@ -1,0 +1,215 @@
+/* Reset Global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace; /* Font monospace khas printer thermal */
+}
+
+body {
+    background-color: #f1f5f9; /* Background abu-abu agar kertas struk menonjol */
+    color: #000;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* Wrapper agar struk ke tengah halaman */
+.receipt-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+/* Kertas Struk Kasir */
+.receipt-paper {
+    background-color: #fff;
+    width: 100%;
+    max-width: 320px; /* Lebar standar struk kasir */
+    padding: 30px 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    position: relative;
+    /* Efek bergerigi di bagian bawah kertas struk */
+    border-bottom: 2px dashed #e2e8f0; 
+}
+
+/* Header (Logo & Nama Toko) */
+.receipt-header {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.receipt-logo {
+    width: 60px;
+    height: auto;
+    margin-bottom: 10px;
+    /* Ubah gambar menjadi hitam putih (grayscale) khas printer struk */
+    filter: grayscale(100%) contrast(120%); 
+}
+
+.receipt-header h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+.receipt-header p {
+    font-size: 12px;
+}
+
+/* Garis Pembatas Putus-putus */
+.divider {
+    border-top: 1px dashed #000;
+    margin: 12px 0;
+}
+
+/* Info Transaksi (Kasir, Tanggal) */
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+/* Tabel Daftar Pesanan */
+.receipt-items {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.receipt-items td {
+    padding: 2px 0;
+    font-size: 13px;
+    vertical-align: top;
+}
+
+.item-name {
+    font-weight: bold;
+    padding-top: 6px !important;
+}
+
+.item-qty {
+    color: #333;
+}
+
+.item-subtotal {
+    text-align: right;
+    font-weight: bold;
+}
+
+/* Ringkasan Pembayaran */
+.receipt-summary {
+    margin-top: 10px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+.total-row {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 8px 0;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    padding: 6px 0;
+}
+
+/* Footer (Terima Kasih) */
+.receipt-footer {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 20px;
+}
+
+.wifi-info {
+    margin-top: 8px;
+    font-weight: bold;
+    border: 1px solid #000;
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+/* =========================================================
+   TOMBOL AKSI (Cetak & Kembali) 
+   ========================================================= */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 30px;
+    width: 100%;
+    max-width: 320px;
+}
+
+.btn {
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: none;
+    font-family: "Segoe UI", sans-serif;
+    transition: all 0.2s;
+}
+
+.btn-print {
+    background-color: #ffcc00;
+    color: #b30000;
+}
+
+.btn-print:hover {
+    background-color: #e6b800;
+}
+
+.btn-back {
+    background-color: #fff;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+}
+
+.btn-back:hover {
+    background-color: #f8fafc;
+}
+
+/* =========================================================
+   PENGATURAN UNTUK MESIN PRINTER KASIR (MAGIC CSS)
+   ========================================================= */
+@media print {
+    /* Sembunyikan tombol saat mencetak */
+    .no-print {
+        display: none !important;
+    }
+
+    /* Hilangkan margin, background, dan shadow pada kertas */
+    body {
+        background-color: white;
+    }
+
+    .receipt-wrapper {
+        padding: 0;
+        margin: 0;
+        min-height: auto;
+    }
+
+    .receipt-paper {
+        max-width: 100%; /* Agar mengikuti lebar kertas printer kasir */
+        box-shadow: none;
+        border: none;
+        padding: 0;
+    }
+}
