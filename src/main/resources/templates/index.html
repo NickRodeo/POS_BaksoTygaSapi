@@ -8,16 +8,28 @@
   </head>
   <body>
     <header class="navbar">
-      <div class="logo">
-        <img
-          th:src="@{/img/LogoBaksoTygaSapi.png}"
-          alt="Logo Bakso Tyga Sapi"
-          class="logo-img"
-        />
+      <!-- Wrapper Kiri: Logo + Nama User -->
+      <div class="navbar-left">
+        <div class="logo">
+          <img
+            th:src="@{/img/LogoBaksoTygaSapi.png}"
+            alt="Logo Bakso Tyga Sapi"
+            class="logo-img"
+          />
+        </div>
+        <!-- NAMA USER DI SEBELAH KANAN LOGO -->
+        <div class="user-profile">
+          <span class="user-label">Kasir:</span>
+          <span class="user-name">Udin</span>
+        </div>
       </div>
+
+      <!-- Wrapper Kanan: Navigasi Links -->
       <nav class="nav-links">
+        <!-- TAMBAHAN NAVIGASI DASHBOARD -->
         <a href="#" class="active">Menu Kasir</a>
         <a href="#">Laporan Transaksi</a>
+        <a href="#">Dashboard</a>
       </nav>
     </header>
 

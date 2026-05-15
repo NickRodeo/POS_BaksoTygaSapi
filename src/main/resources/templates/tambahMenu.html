@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tambah Menu Baru - POS Bakso Tyga Sapi</title>
+    <!-- Tetap panggil index.css utama lo untuk sinkronisasi layout navbar -->
+    <link rel="stylesheet" th:href="@{/css/index.css}" />
+    <link rel="stylesheet" th:href="@{/css/tambahMenu.css}" />
+  </head>
+  <body>
+    <!-- Navbar bawaan agar UI tetap konsisten -->
+    <header class="navbar">
+      <!-- Wrapper Kiri: Logo + Nama User -->
+      <div class="navbar-left">
+        <div class="logo">
+          <img
+            th:src="@{/img/LogoBaksoTygaSapi.png}"
+            alt="Logo Bakso Tyga Sapi"
+            class="logo-img"
+          />
+        </div>
+        <!-- NAMA USER DI SEBELAH KANAN LOGO -->
+        <div class="user-profile">
+          <span class="user-label">Kasir:</span>
+          <span class="user-name">Udin</span>
+        </div>
+      </div>
+
+      <!-- Wrapper Kanan: Navigasi Links -->
+      <nav class="nav-links">
+        <!-- TAMBAHAN NAVIGASI DASHBOARD -->
+        <a href="#" class="active">Menu Kasir</a>
+        <a href="#">Laporan Transaksi</a>
+        <a href="#">Dashboard</a>
+      </nav>
+    </header>
+
+    <main class="form-wrapper">
+      <div class="form-card">
+        <h2>Tambah Menu Baru</h2>
+
+        <!-- Form Action mengirim data POST multipart ke backend Spring -->
+        <form
+          th:action="@{/menu/tambah}"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+          <div class="form-group">
+            <label th:for="nama">Nama Menu / Varian Bakso</label>
+            <input
+              type="text"
+              id="nama"
+              name="nama"
+              placeholder="Contoh: Bakso Telur Puyuh"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label th:for="harga">Harga Jual (Rp)</label>
+            <input
+              type="number"
+              id="harga"
+              name="harga"
+              placeholder="Contoh: 18000"
+              min="0"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label th:for="stok">Stok Awal di Dapur</label>
+            <input
+              type="number"
+              id="stok"
+              name="stok"
+              placeholder="Contoh: 100"
+              min="0"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label th:for="gambarFile">Foto Produk Bakso/Minuman</label>
+            <!-- Ditambahkan event onchange untuk memicu fungsi JavaScript -->
+            <input
+              type="file"
+              id="gambarFile"
+              name="gambarFile"
+              accept="image/*"
+              onchange="tampilkanPreview(this)"
+            />
+
+            <!-- KOTAK PREVIEW TAMBAHAN DI SINI -->
+            <div class="image-preview-container" id="previewContainer">
+              <img id="imagePreview" src="" alt="Pratinjau Gambar" />
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <a href="/" class="btn-kembali-kasir">Batal</a>
+            <button type="submit" class="btn-simpan">Simpan Menu</button>
+          </div>
+        </form>
+      </div>
+    </main>
+    <script th:src="@{/js/tambahMenu.js}"></script>
+  </body>
+</html>

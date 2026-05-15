@@ -32,6 +32,13 @@ public class MenuController {
     // ==========================================
     // 1. ENDPOINT: TAMBAH MENU (+ UPLOAD GAMBAR)
     // ==========================================
+    @GetMapping("/menu/tambah")
+    public String tampilkanFormTambah(Model model) {
+        // Menyediakan objek kosong ke Thymeleaf form agar terikat (form binding) dengan aman
+        model.addAttribute("menu", new Menu()); 
+        return "tambahMenu"; // Mengarah ke src/main/resources/templates/tambah-menu.html
+    }
+
     @PostMapping("/menu/tambah")
     public String tambahMenu(@RequestParam("nama") String nama,
                              @RequestParam("harga") int harga,
