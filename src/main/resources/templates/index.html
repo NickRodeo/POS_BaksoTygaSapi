@@ -1,101 +1,114 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+  <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>POS Bakso Tyga Sapi - Kasir</title>
     <link rel="stylesheet" th:href="@{/css/index.css}" />
-</head>
-<body>
+  </head>
+  <body>
     <header class="navbar">
-        <div class="logo">
-            <img th:src="@{/img/LogoBaksoTygaSapi.png}" alt="Logo Bakso Tyga Sapi" class="logo-img">
-        </div>
-        <nav class="nav-links">
-            <a href="#" class="active">Menu Kasir</a>
-            <a href="laporan.html">Laporan Transaksi</a>
-        </nav>
+      <div class="logo">
+        <img
+          th:src="@{/img/LogoBaksoTygaSapi.png}"
+          alt="Logo Bakso Tyga Sapi"
+          class="logo-img"
+        />
+      </div>
+      <nav class="nav-links">
+        <a href="#" class="active">Menu Kasir</a>
+        <a href="#">Laporan Transaksi</a>
+      </nav>
     </header>
 
     <main class="main-container">
-        
-        <section class="menu-section">
-            <h2>Daftar Menu</h2>
-            <div class="menu-grid">
-                
-                <div class="menu-card">
-                    <img th:src="@{/img/BaksoIga.jpg}" alt="Bakso Iga" class="menu-img">
-                    <div class="menu-info">
-                        <h3>Bakso Iga</h3>
-                        <p class="harga">Rp 40.000</p>
-                        <p class="stok">Stok: 15</p>
-                    </div>
-                    <button class="btn-tambah">+ Tambah</button>
-                </div>
+      <section class="menu-section">
+        <h2>Daftar Menu</h2>
 
-                <div class="menu-card">
-                    <img th:src="@{/img/BaksoIgaIstimewah.jpg}" alt="Bakso Iga Istimewah" class="menu-img">
-                    <div class="menu-info">
-                        <h3>Bakso Iga Istimewah</h3>
-                        <p class="harga">Rp 52.000</p>
-                        <p class="stok">Stok: 10</p>
-                    </div>
-                    <button class="btn-tambah">+ Tambah</button>
-                </div>
+        <!-- FITUR BARU: Search Bar Input Real-Time -->
+        <!-- KODE BARU: Search Container dengan SVG Kaca Pembesar -->
+        <div class="search-container">
+          <svg
+            class="search-icon-svg"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input
+            type="text"
+            id="searchMenuInput"
+            placeholder="Cari menu bakso atau minuman..."
+            oninput="filterMenu()"
+          />
+        </div>
 
-                <div class="menu-card">
-                    <img th:src="@{/img/EsTehManis.jpg}" alt="Es Teh Manis" class="menu-img">
-                    <div class="menu-info">
-                        <h3>Es Teh Manis</h3>
-                        <p class="harga">Rp 5.000</p>
-                        <p class="stok">Stok: 50</p>
-                    </div>
-                    <button class="btn-tambah">+ Tambah</button>
-                </div>
-
+        <div class="menu-grid">
+          <!-- LOOP DATA DARI DATABASE LEWAT JAVA OBJECT -->
+          <div class="menu-card" th:each="menu : ${daftarMenu}">
+            <!-- PBO: Mengakses properti objek via Thymeleaf expressions -->
+            <img
+              th:src="@{/img/{gambar}(gambar=${menu.gambar != null ? menu.gambar : 'default.jpg'})}"
+              alt="Menu"
+              class="menu-img"
+            />
+            <div class="menu-info">
+              <!-- FITUR BARU: Menambahkan class="menu-title" untuk target filter JS -->
+              <h3 class="menu-title" th:text="${menu.nama}">Nama Menu</h3>
+              <!-- Atribut data-* disematkan untuk dibaca oleh JavaScript -->
+              <p
+                class="harga"
+                th:data-price="${menu.harga}"
+                th:text="'Rp ' + ${#numbers.formatInteger(menu.harga, 3, 'POINT')}"
+              >
+                Rp 0
+              </p>
+              <p class="stok" th:text="'Stok: ' + ${menu.stok}">Stok: 0</p>
             </div>
-        </section>
+            <!-- Mengirimkan argumen nama dan harga ke fungsi JS saat diklik -->
+            <button
+              class="btn-tambah"
+              th:onclick="tambahKeKeranjang([[${menu.nama}]], [[${menu.harga}]])"
+            >
+              + Tambah
+            </button>
+          </div>
+        </div>
+      </section>
 
-        <section class="cart-section">
-            <h2>Pesanan Saat Ini</h2>
-            
-            <div class="cart-items">
-                <div class="cart-item">
-                    <div class="item-desc">
-                        <h4>Bakso Iga</h4>
-                        <p>Rp 40.000 x 2</p>
-                    </div>
-                    <div class="item-subtotal">Rp 80.000</div>
-                </div>
+      <!-- Awalnya ditambahkan class hidden jika data keranjang masih kosong -->
+      <section class="cart-section hidden" id="cartSection">
+        <h2>Pesanan Saat Ini</h2>
 
-                <div class="cart-item">
-                    <div class="item-desc">
-                        <h4>Es Teh Manis</h4>
-                        <p>Rp 5.000 x 2</p>
-                    </div>
-                    <div class="item-subtotal">Rp 10.000</div>
-                </div>
-            </div>
+        <!-- Wadah kosong, nanti diisi secara interaktif oleh script.js -->
+        <div class="cart-items" id="cartItems"></div>
 
-            <div class="cart-summary">
-                <div class="summary-row">
-                    <span>Subtotal</span>
-                    <span>Rp 90.000</span>
-                </div>
-                <div class="summary-row total">
-                    <span><strong>Total Bayar</strong></span>
-                    <span><strong>Rp 90.000</strong></span>
-                </div>
-            </div>
+        <div class="cart-summary">
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="subtotalPrice">Rp 0</span>
+          </div>
+          <div class="summary-row total">
+            <span><strong>Total Bayar</strong></span>
+            <span><strong id="totalPrice">Rp 0</strong></span>
+          </div>
+        </div>
 
-            <div class="cart-actions">
-                <button class="btn-batal">Batal</button>
-                <button class="btn-bayar">Proses Bayar</button>
-            </div>
-        </section>
-
+        <div class="cart-actions">
+          <button class="btn-batal" onclick="batalSemuaPesanan()">Batal</button>
+          <button class="btn-bayar" onclick="prosesPembayaran()">
+            Proses Bayar
+          </button>
+        </div>
+      </section>
     </main>
 
     <script th:src="@{/js/index.js}"></script>
-</body>
+  </body>
 </html>

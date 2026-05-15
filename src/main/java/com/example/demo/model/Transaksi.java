@@ -13,6 +13,6 @@ public class Transaksi {
     }
 
     private double hitungTotal() {
-        return itemPesanan.stream().mapToDouble(m -> m.harga).sum();
+        return itemPesanan.stream().mapToDouble(m -> m.getHarga()).sum();
     }
 }

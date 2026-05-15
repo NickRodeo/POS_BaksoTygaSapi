@@ -1,281 +1,420 @@
 /* Global Styles */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background-color: #fdfdfd;
-    color: #333;
+  background-color: #fdfdfd;
+  color: #333;
 }
 
 /* Navbar Styling */
 .navbar {
-    background-color: #b30000; /* Merah Tua */
-    color: white;
-    padding: 15px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  background-color: #b30000; /* Merah Tua */
+  color: white;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .logo h1 {
-    font-size: 24px;
-    color: #ffcc00; /* Kuning */
-    text-transform: uppercase;
-    letter-spacing: 1px;
+  font-size: 24px;
+  color: #ffcc00; /* Kuning */
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .nav-links a {
-    color: white;
-    text-decoration: none;
-    margin-left: 20px;
-    font-weight: 500;
-    padding: 8px 15px;
-    border-radius: 5px;
-    transition: 0.3s;
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: 500;
+  padding: 8px 15px;
+  border-radius: 5px;
+  transition: 0.3s;
 }
 
 .nav-links a:hover {
-    background-color: #ffcc00;
-    color: #b30000;
+  background-color: #ffcc00;
+  color: #b30000;
 }
 
 .nav-links a.active {
-    background-color: #ffcc00;
-    color: #b30000;
-    font-weight: bold;
+  background-color: #ffcc00;
+  color: #b30000;
+  font-weight: bold;
 }
 
 /* Main Container Layout */
 .main-container {
-    display: flex;
-    padding: 20px;
-    gap: 20px;
-    height: calc(100vh - 70px);
+  display: flex;
+  padding: 20px;
+  gap: 20px;
+  height: calc(100vh - 70px);
 }
 
 /* Menu Section (Kiri) */
 .menu-section {
-    flex: 3;
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    overflow-y: auto;
+  flex: 3;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  overflow-y: auto;
 }
 
 .menu-section h2 {
-    margin-bottom: 20px;
-    color: #b30000;
-    border-left: 5px solid #ffcc00;
-    padding-left: 10px;
+  margin-bottom: 20px;
+  color: #b30000;
+  border-left: 5px solid #ffcc00;
+  padding-left: 10px;
 }
 
 .menu-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
 }
 
 .menu-card {
-    background: white;
-    border: 1px solid #eee;
-    border-radius: 12px;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .menu-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
 .menu-info h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
+  font-size: 18px;
+  margin-bottom: 10px;
 }
 
 .harga {
-    color: #b30000;
-    font-weight: bold;
-    font-size: 16px;
-    margin-bottom: 5px;
+  color: #b30000;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 5px;
 }
 
 .stok {
-    font-size: 13px;
-    color: #777;
-    margin-bottom: 15px;
+  font-size: 13px;
+  color: #777;
+  margin-bottom: 15px;
 }
 
 .btn-tambah {
-    background-color: #ffcc00;
-    color: #b30000;
-    border: none;
-    padding: 10px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.2s;
+  background-color: #ffcc00;
+  color: #b30000;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
 .btn-tambah:hover {
-    background-color: #e6b800;
+  background-color: #e6b800;
 }
 
 /* Cart Section (Kanan) */
 .cart-section {
-    flex: 1;
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-    border-top: 5px solid #b30000;
+  flex: 1;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  border-top: 5px solid #b30000;
 }
 
 .cart-section h2 {
-    font-size: 20px;
-    margin-bottom: 20px;
-    color: #333;
-    text-align: center;
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
 }
 
 .cart-items {
-    flex-grow: 1;
-    overflow-y: auto;
-    margin-bottom: 20px;
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-bottom: 20px;
 }
 
 .cart-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px dashed #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px dashed #ddd;
 }
 
 .item-desc h4 {
-    font-size: 15px;
+  font-size: 15px;
 }
 
 .item-desc p {
-    font-size: 13px;
-    color: #666;
+  font-size: 13px;
+  color: #666;
 }
 
 .item-subtotal {
-    font-weight: bold;
-    color: #b30000;
+  font-weight: bold;
+  color: #b30000;
 }
 
 /* Summary Area */
 .cart-summary {
-    padding-top: 15px;
-    border-top: 2px solid #eee;
+  padding-top: 15px;
+  border-top: 2px solid #eee;
 }
 
 .summary-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .summary-row.total {
-    font-size: 18px;
-    color: #b30000;
-    margin-top: 5px;
-    padding-top: 5px;
+  font-size: 18px;
+  color: #b30000;
+  margin-top: 5px;
+  padding-top: 5px;
 }
 
 /* Action Buttons */
 .cart-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
 }
 
 .btn-batal {
-    flex: 1;
-    background: #eee;
-    color: #555;
-    border: none;
-    padding: 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
+  flex: 1;
+  background: #eee;
+  color: #555;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 .btn-bayar {
-    flex: 2;
-    background: #b30000;
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 16px;
-    transition: 0.3s;
+  flex: 2;
+  background: #b30000;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  transition: 0.3s;
 }
 
 .btn-bayar:hover {
-    background-color: #8b0000;
-    box-shadow: 0 4px 8px rgba(179, 0, 0, 0.3);
+  background-color: #8b0000;
+  box-shadow: 0 4px 8px rgba(179, 0, 0, 0.3);
 }
 
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
-    width: 6px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+  background: #f1f1f1;
 }
 ::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 10px;
+  background: #ccc;
+  border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #b30000;
+  background: #b30000;
 }
 
 /* --- Tambahan Styling untuk Gambar --- */
 
 /* Mengatur ukuran logo di Navbar */
 .logo-img {
-    height: 40px; /* Sesuaikan ukuran logo */
-    width: auto;
-    object-fit: contain;
+  height: 40px; /* Sesuaikan ukuran logo */
+  width: auto;
+  object-fit: contain;
 }
 
 /* Mengatur gambar menu agar pas di dalam kartu */
 .menu-img {
-    width: 100%;
-    height: 150px; /* Tinggi gambar dibuat seragam */
-    object-fit: cover; /* Agar gambar tidak gepeng */
-    border-radius: 8px 8px 0 0; /* Membuat sudut atas melengkung */
-    margin-bottom: 15px;
+  width: 100%;
+  height: 150px; /* Tinggi gambar dibuat seragam */
+  object-fit: cover; /* Agar gambar tidak gepeng */
+  border-radius: 8px 8px 0 0; /* Membuat sudut atas melengkung */
+  margin-bottom: 15px;
 }
 
 /* Sedikit perbaikan pada menu-card agar paddingnya pas dengan gambar */
 .menu-card {
-    padding: 0; /* Menghilangkan padding utama agar gambar menempel ke tepi */
-    overflow: hidden;
+  padding: 0; /* Menghilangkan padding utama agar gambar menempel ke tepi */
+  overflow: hidden;
 }
 
-.menu-info, .btn-tambah {
-    margin: 0 15px; /* Memberikan jarak teks dan tombol ke tepi kartu */
+.menu-info,
+.btn-tambah {
+  margin: 0 15px; /* Memberikan jarak teks dan tombol ke tepi kartu */
 }
 
 .btn-tambah {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+/* --- Tambahan untuk Interaktivitas JS --- */
+.cart-section.hidden {
+  display: none !important;
+}
+
+/* --- UI PERBAIKAN: SEJAJAR & PROFESIONAL --- */
+.cart-item {
+  position: relative;
+  display: flex;
+  justify-content: space-between; /* Ini yang bikin Nama di Kiri, Tombol di Kanan */
+  align-items: center; /* Biar sejajar secara vertikal (nggak naik turun) */
+  padding: 12px 16px;
+  background: #ffffff;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  border: 1px solid #f1f5f9;
+}
+
+.item-desc {
+  flex: 1; /* Biar dia ngambil ruang sisa di kiri */
+}
+
+.item-desc h4 {
+  margin: 0;
+  font-size: 14px;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Biar kalau nama kepanjangan gak ngerusak layout */
+  max-width: 150px;
+}
+
+.item-base-price {
+  margin: 0;
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.cart-item-right {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Jarak antara angka +- dengan subtotal */
+}
+
+/* Kapsul Qty minimalis */
+.qty-counter-capsule {
+  display: flex;
+  align-items: center;
+  background-color: #f1f5f9;
+  border-radius: 6px;
+  padding: 2px;
+}
+
+.btn-qty {
+  background: transparent;
+  border: none;
+  width: 24px;
+  height: 24px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #475569;
+}
+
+.qty-number {
+  font-size: 13px;
+  font-weight: 600;
+  min-width: 20px;
+  text-align: center;
+}
+
+.item-subtotal {
+  font-size: 13px;
+  font-weight: 700;
+  color: #10b981;
+  min-width: 80px;
+  text-align: right;
+}
+
+/* Tombol Hapus (X) ditaruh paling kanan luar */
+.btn-hapus-item {
+  background: transparent;
+  color: #cbd5e1;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  margin-left: 10px;
+  padding: 0;
+}
+
+.btn-hapus-item:hover {
+  color: #ef4444;
+}
+
+/* ==========================================================================
+   STYLE FITUR PENCARIAN DINAMIS & SVG
+   ========================================================================== */
+
+.search-container {
+  position: relative;
+  margin-bottom: 24px;
+  width: 100%; /* Memenuhi lebar .menu-section secara dinamis */
+}
+
+.search-container input {
+  width: 100%;
+  box-sizing: border-box; /* Biar padding gak ngerusak width 100% */
+  padding: 12px 16px 12px 46px; /* Beri jarak di kiri untuk ikon SVG */
+  font-size: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #1e293b;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-container input:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* Style untuk ikon SVG biar pas di tengah kiri input */
+.search-icon-svg {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: #94a3b8;
+  pointer-events: none; /* Supaya input tetap bisa diklik walau kena ikon */
+}
+
+/* Class pembantu untuk menyembunyikan kartu menu saat difilter JS */
+.menu-card.hidden-menu {
+  display: none !important;
 }
