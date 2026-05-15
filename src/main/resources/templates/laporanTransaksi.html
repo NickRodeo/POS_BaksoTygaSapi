@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laporan Transaksi - POS Bakso Tyga Sapi</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}" href="../static/css/index.css" />
+    <link rel="stylesheet" th:href="@{/css/LaporanTransaksi.css}" href="../static/css/LaporanTransaksi.css" />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="navbar-left">
+        <div class="logo">
+          <img 
+            th:src="@{/img/LogoBaksoTygaSapi.png}" 
+            src="../static/img/LogoBaksoTygaSapi.png" 
+            alt="Logo Bakso Tyga Sapi" 
+            class="logo-img" 
+          />
+        </div>
+        <div class="user-profile">
+          <span class="user-label">Kasir:</span>
+          <span class="user-name">Udin</span>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a th:href="@{/}">Menu Kasir</a>
+        <a href="#" class="active">Laporan Transaksi</a>
+        <a href="#">Dashboard</a>
+      </nav>
+    </header>
+
+    <main class="laporan-container">
+      <section class="laporan-header">
+        <h2>Riwayat Penjualan Harian</h2>
+        <div class="filter-area">
+          <input type="date" id="filterTanggal" class="input-date" />
+          <button class="btn-cetak">Cetak Laporan</button>
+        </div>
+      </section>
+
+      <section class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-label">Total Transaksi</span>
+          <span class="stat-value">3</span>
+        </div>
+        <div class="stat-card highlight">
+          <span class="stat-label">Total Pendapatan</span>
+          <span class="stat-value">Rp 237.000</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Menu Terlaris</span>
+          <span class="stat-value">Bakso Mie</span>
+        </div>
+      </section>
+
+      <section class="table-section">
+        <table class="laporan-table">
+          <thead>
+            <tr>
+              <th>ID Transaksi</th>
+              <th>Waktu</th>
+              <th>Detail Pesanan</th>
+              <th>Total Bayar</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>#TR-001</td>
+              <td>12:30:15</td>
+              <td>2x Bakso Iga, 1x Es Teh</td>
+              <td>Rp 85.000</td>
+              <td><span class="badge success">Selesai</span></td>
+            </tr>
+            <tr>
+              <td>#TR-002</td>
+              <td>13:15:40</td>
+              <td>1x Bakso Iga Istimewah, 2x Es Jeruk</td>
+              <td>Rp 68.000</td>
+              <td><span class="badge success">Selesai</span></td>
+            </tr>
+            <tr>
+              <td>#TR-003</td>
+              <td>14:05:22</td>
+              <td>3x Bakso Mie, 3x Es Teh Manis</td>
+              <td>Rp 84.000</td>
+              <td><span class="badge success">Selesai</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <script th:src="@{/js/index.js}"></script>
+  </body>
+</html>
