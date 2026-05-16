@@ -1,0 +1,753 @@
+/* ==========================================================================
+   LOGIN PAGE - POS Bakso Tyga Sapi
+   Mengikuti design system yang sudah ada:
+   - Warna merah tua: #b30000
+   - Warna kuning aksen: #ffcc00
+   - Font: Segoe UI (konsisten dengan index.css)
+   - Border radius: 8-12px
+   ========================================================================== */
+
+/* Inherits global reset dari index.css jika di-load bersama.
+   Jika halaman login standalone, definisikan ulang di sini. */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* CSS Custom Properties - satu tempat untuk ubah warna */
+:root {
+  --color-primary: #b30000;
+  --color-primary-dark: #8b0000;
+  --color-primary-light: #f9e8e8;
+  --color-accent: #ffcc00;
+  --color-accent-dark: #e6b800;
+  --color-text-dark: #1e293b;
+  --color-text-medium: #475569;
+  --color-text-light: #94a3b8;
+  --color-border: #cbd5e1;
+  --color-border-focus: #ffcc00;
+  --color-bg-page: #fdfdfd;
+  --color-bg-card: #ffffff;
+  --color-bg-input: #ffffff;
+  --color-success: #10b981;
+  --color-error: #dc2626;
+  --color-error-bg: #fef2f2;
+  --color-error-border: #fecaca;
+  --color-success-bg: #f0fdf4;
+  --color-success-border: #bbf7d0;
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-btn: 0 4px 10px rgba(179, 0, 0, 0.3);
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg-page: #0f172a;
+    --color-bg-card: #1e293b;
+    --color-bg-input: #0f172a;
+    --color-text-dark: #f1f5f9;
+    --color-text-medium: #94a3b8;
+    --color-text-light: #64748b;
+    --color-border: #334155;
+    --color-primary-light: #2d0000;
+    --color-error-bg: #1c0a0a;
+    --color-error-border: #7f1d1d;
+    --color-success-bg: #052e16;
+    --color-success-border: #14532d;
+    --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* ==========================================================================
+   LAYOUT UTAMA: Split Panel (Branding | Login Form)
+   ========================================================================== */
+
+body {
+  background-color: var(--color-bg-page);
+  color: var(--color-text-dark);
+  min-height: 100vh;
+}
+
+.login-page {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ==========================================================================
+   PANEL KIRI: Branding
+   ========================================================================== */
+
+.branding-panel {
+  flex: 0 0 420px;
+  background-color: var(--color-primary);
+  background-image:
+    radial-gradient(ellipse at 20% 20%, rgba(255, 204, 0, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 50px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Dekorasi: Lingkaran abstrak di pojok */
+.branding-panel::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  border: 40px solid rgba(255, 204, 0, 0.12);
+  pointer-events: none;
+}
+
+.branding-panel::after {
+  content: '';
+  position: absolute;
+  bottom: -60px;
+  left: -60px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 30px solid rgba(255, 255, 255, 0.06);
+  pointer-events: none;
+}
+
+.branding-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.brand-logo-wrapper {
+  width: 72px;
+  height: 72px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  backdrop-filter: blur(4px);
+}
+
+.brand-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.brand-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+  margin-top: 8px;
+}
+
+.brand-tagline {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.5;
+  max-width: 300px;
+}
+
+/* Daftar fitur */
+.brand-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.brand-features li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.feature-icon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  background-color: var(--color-accent);
+  color: var(--color-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.brand-copyright {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  position: relative;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   PANEL KANAN: Form Login
+   ========================================================================== */
+
+.login-panel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background-color: var(--color-bg-page);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 440px;
+  background-color: var(--color-bg-card);
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: var(--shadow-card);
+  border-top: 5px solid var(--color-primary); /* Konsisten dengan .form-card di tambahMenu */
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   HEADER FORM
+   ========================================================================== */
+
+.login-header {
+  margin-bottom: 28px;
+}
+
+.login-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  margin-bottom: 6px;
+}
+
+.login-header p {
+  font-size: 14px;
+  color: var(--color-text-light);
+}
+
+/* ==========================================================================
+   ALERT MESSAGES
+   ========================================================================== */
+
+.alert {
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  line-height: 1.4;
+}
+
+.alert-error {
+  background-color: var(--color-error-bg);
+  border-color: var(--color-error-border);
+  color: var(--color-error);
+}
+
+.alert-success {
+  background-color: var(--color-success-bg);
+  border-color: var(--color-success-border);
+  color: var(--color-success);
+}
+
+/* ==========================================================================
+   FORM GROUPS - Konsisten dengan tambahMenu.css
+   ========================================================================== */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-text-medium);
+  margin-bottom: 8px;
+}
+
+/* Wrapper untuk input + ikon */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 12px 44px; /* Kiri untuk ikon, kanan untuk tombol mata */
+  font-size: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background-color: var(--color-bg-input);
+  color: var(--color-text-dark);
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  -webkit-appearance: none;
+}
+
+/* Password field: padding kanan lebih besar untuk tombol toggle */
+#password {
+  padding-right: 48px;
+}
+
+.input-wrapper input::placeholder {
+  color: var(--color-text-light);
+}
+
+.input-wrapper input:focus {
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.2); /* Konsisten dengan tambahMenu.css */
+}
+
+/* State error pada input */
+.input-wrapper input.input-error {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+/* Ikon di dalam input - konsisten dengan search-icon-svg index.css */
+.input-icon {
+  position: absolute;
+  left: 14px;
+  width: 18px;
+  height: 18px;
+  color: var(--color-text-light);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+/* Tombol Show/Hide Password */
+.btn-toggle-password {
+  position: absolute;
+  right: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 4px;
+  transition: color var(--transition-fast);
+}
+
+.btn-toggle-password:hover {
+  color: var(--color-text-medium);
+}
+
+.btn-toggle-password:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.btn-toggle-password svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Pesan error per field */
+.field-error {
+  font-size: 12px;
+  color: var(--color-error);
+  margin-top: 6px;
+  min-height: 16px; /* Mencegah layout shift saat error muncul */
+  display: block;
+}
+
+/* State error pada form-group (border merah) */
+.form-group.has-error .input-wrapper input {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+/* ==========================================================================
+   OPSI LOGIN: Remember Me + Forgot Password
+   ========================================================================== */
+
+.login-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+/* Checkbox custom - konsisten dengan styling halaman lain */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--color-text-medium);
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkbox-custom {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 4px;
+  background-color: var(--color-bg-input);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.checkbox-input:checked + .checkbox-custom {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.checkbox-input:checked + .checkbox-custom::after {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 9px;
+  border: 2px solid white;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg) translateY(-1px);
+}
+
+.checkbox-input:focus-visible + .checkbox-custom {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.link-forgot {
+  font-size: 13px;
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.link-forgot:hover {
+  color: var(--color-primary-dark);
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   TOMBOL SUBMIT - Konsisten dengan .btn-bayar di index.css
+   ========================================================================== */
+
+.btn-login {
+  width: 100%;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  letter-spacing: 0.2px;
+}
+
+.btn-login:hover:not(:disabled) {
+  background-color: var(--color-primary-dark);
+  box-shadow: var(--shadow-btn);
+}
+
+.btn-login:active:not(:disabled) {
+  transform: scale(0.99);
+}
+
+.btn-login:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Loading spinner */
+.btn-spinner {
+  display: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+.btn-login.loading .btn-spinner {
+  display: block;
+}
+
+.btn-login.loading .btn-text {
+  opacity: 0.8;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   DIVIDER
+   ========================================================================== */
+
+.divider {
+  position: relative;
+  text-align: center;
+  margin: 24px 0;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: var(--color-border);
+}
+
+.divider span {
+  position: relative;
+  background-color: var(--color-bg-card);
+  padding: 0 12px;
+  font-size: 13px;
+  color: var(--color-text-light);
+}
+
+/* ==========================================================================
+   SOCIAL LOGIN BUTTONS
+   ========================================================================== */
+
+.social-login-group {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-social {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 11px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background-color: var(--color-bg-card);
+  color: var(--color-text-dark);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.btn-social:hover {
+  background-color: var(--color-primary-light);
+  border-color: var(--color-primary);
+  box-shadow: 0 2px 8px rgba(179, 0, 0, 0.1);
+}
+
+.btn-social svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* Focus styles untuk aksesibilitas */
+.btn-social:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   LINK DAFTAR
+   ========================================================================== */
+
+.register-prompt {
+  text-align: center;
+  font-size: 13px;
+  color: var(--color-text-medium);
+  margin-top: 20px;
+}
+
+.link-register {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.link-register:hover {
+  color: var(--color-primary-dark);
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+/* Tablet: Sembunyikan branding panel */
+@media (max-width: 900px) {
+  .branding-panel {
+    flex: 0 0 320px;
+    padding: 40px 30px;
+  }
+
+  .brand-title {
+    font-size: 22px;
+  }
+}
+
+/* Mobile: Layout vertikal, branding jadi header kecil */
+@media (max-width: 640px) {
+  .login-page {
+    flex-direction: column;
+  }
+
+  .branding-panel {
+    flex: none;
+    padding: 24px 20px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+  }
+
+  .branding-panel::before,
+  .branding-panel::after {
+    display: none;
+  }
+
+  .branding-content {
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+  }
+
+  .brand-logo-wrapper {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+  }
+
+  .brand-title {
+    font-size: 18px;
+    margin-top: 0;
+  }
+
+  .brand-tagline,
+  .brand-features,
+  .brand-copyright {
+    display: none;
+  }
+
+  .login-panel {
+    padding: 24px 16px;
+    align-items: flex-start;
+  }
+
+  .login-card {
+    padding: 28px 24px;
+    border-radius: 12px;
+    box-shadow: none;
+    border: 1px solid var(--color-border);
+    border-top: 5px solid var(--color-primary);
+  }
+
+  .social-login-group {
+    flex-direction: column;
+  }
+
+  .btn-social {
+    justify-content: center;
+  }
+
+  .login-options {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+/* ==========================================================================
+   AKSESIBILITAS
+   ========================================================================== */
+
+/* Skip link untuk keyboard navigation */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 4px;
+  padding: 8px 16px;
+  background: var(--color-primary);
+  color: white;
+  border-radius: 4px;
+  font-weight: 600;
+  z-index: 9999;
+}
+
+.skip-link:focus {
+  left: 4px;
+}
+
+/* Reduce motion untuk accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .login-card {
+    animation: none;
+  }
+
+  .btn-spinner {
+    animation: none;
+  }
+
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}
