@@ -118,4 +118,9 @@ public class MenuController {
         menuRepository.deleteById(id);
         return "redirect:/";
     }
+
+    @GetMapping("/test")
+    public String terserah() {
+        return "login";
+    }
 }
