@@ -9,40 +9,13 @@
     <link rel="stylesheet" th:href="@{/css/tambahMenu.css}" />
   </head>
   <body>
-    <!-- Navbar bawaan agar UI tetap konsisten -->
-    <header class="navbar">
-      <!-- Wrapper Kiri: Logo + Nama User -->
-      <div class="navbar-left">
-        <div class="logo">
-          <img
-            th:src="@{/img/LogoBaksoTygaSapi.png}"
-            alt="Logo Bakso Tyga Sapi"
-            class="logo-img"
-          />
-        </div>
-        <!-- NAMA USER DI SEBELAH KANAN LOGO -->
-        <div class="user-profile">
-          <span class="user-label">Kasir:</span>
-          <span class="user-name">Udin</span>
-        </div>
-      </div>
-
-      <!-- Wrapper Kanan: Navigasi Links -->
-      <nav class="nav-links">
-        <!-- TAMBAHAN NAVIGASI DASHBOARD -->
-        <a href="#" class="active">Menu Kasir</a>
-        <a href="#">Laporan Transaksi</a>
-        <a href="#">Dashboard</a>
-      </nav>
-    </header>
-
     <main class="form-wrapper">
       <div class="form-card">
         <h2>Tambah Menu Baru</h2>
 
         <!-- Form Action mengirim data POST multipart ke backend Spring -->
         <form
-          th:action="@{/menu/tambah}"
+          th:action="@{/admin/menu/tambah}"
           method="POST"
           enctype="multipart/form-data"
         >
@@ -99,7 +72,7 @@
           </div>
 
           <div class="form-actions">
-            <a href="/" class="btn-kembali-kasir">Batal</a>
+            <a href="/admin/menu" class="btn-kembali-kasir">Batal</a>
             <button type="submit" class="btn-simpan">Simpan Menu</button>
           </div>
         </form>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Kelola User - Bakso Tyga Sapi</title>
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}" />
+  </head>
+  <body>
+    <div class="admin-layout">
+      <aside th:replace="~{fragments/layout :: sidebar(active='user')}"></aside>
+      <div class="main-wrapper">
+        <header
+          th:replace="~{fragments/layout :: topbar(adminName=${adminName})}"
+        ></header>
+
+        <main class="dashboard-content">
+          <section class="content-header">
+            <h2>Data User Tyga Sapi</h2>
+          </section>
+
+          <section class="table-section">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Username</th>
+                  <th>Nama Lengkap</th>
+                  <th>Role</th>
+                  <th class="text-center">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="u : ${users}">
+                  <td th:text="${u.username}">Username</td>
+                  <td th:text="${u.namaLengkap}">Nama</td>
+                  <td>
+                    <form
+                      th:action="@{/admin/user/edit-role/{id}(id=${u.id})}"
+                      method="post"
+                    >
+                      <select name="role" onchange="this.form.submit()">
+                        <option
+                          th:each="r : ${T(com.example.demo.model.Role).values()}"
+                          th:value="${r}"
+                          th:text="${r}"
+                          th:selected="${u.role == r}"
+                        ></option>
+                      </select>
+                    </form>
+                  </td>
+                  <td class="action-cell">
+                    <a
+                      href="#"
+                      th:onclick="'showDeleteModal(\'' + @{/admin/user/hapus/{id}(id=${u.id})} + '\')'"
+                      class="btn-action btn-delete"
+                      >Hapus</a
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </main>
+      </div>
+    </div>
+    <!-- Modal Konfirmasi -->
+    <div id="deleteModal" class="modal-overlay" style="display: none">
+      <div class="modal-box">
+        <h3>Konfirmasi Hapus</h3>
+        <p>Data yang dihapus tidak dapat dikembalikan. Yakin?</p>
+        <div class="modal-actions">
+          <button class="btn-cancel" onclick="closeModal()">Batal</button>
+          <a id="confirmDeleteBtn" href="#" class="btn-confirm">Ya, Hapus</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function showDeleteModal(url) {
+        document.getElementById("deleteModal").style.display = "flex";
+        document.getElementById("confirmDeleteBtn").href = url;
+      }
+
+      function closeModal() {
+        document.getElementById("deleteModal").style.display = "none";
+      }
+    </script>
+  </body>
+</html>

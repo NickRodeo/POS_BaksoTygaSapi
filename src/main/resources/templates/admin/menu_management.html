@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Kelola Menu - Bakso Tyga Sapi</title>
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}" />
+  </head>
+  <body>
+    <div class="admin-layout">
+      <aside th:replace="~{fragments/layout :: sidebar(active='menu')}"></aside>
+      <div class="main-wrapper">
+        <header
+          th:replace="~{fragments/layout :: topbar(adminName=${adminName})}"
+        ></header>
+
+        <main class="dashboard-content">
+          <section class="content-header">
+            <div class="header-title">
+              <h2>Data Menu Tyga Sapi</h2>
+              <p>Kelola daftar menu makanan dan minuman beserta harganya.</p>
+            </div>
+            <div class="header-action">
+              <button
+                class="btn-tambah"
+                onclick="location.href='/admin/menu/tambah'"
+              >
+                + Tambah Menu
+              </button>
+            </div>
+          </section>
+
+          <section class="table-section">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Gambar</th>
+                  <th>Nama Menu</th>
+                  <th>Harga</th>
+                  <th>Stok</th>
+                  <th class="text-center">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="m : ${menus}">
+                  <td>
+                    <img
+                      th:src="@{'/img/' + ${m.gambar}}"
+                      class="menu-img-thumb"
+                    />
+                  </td>
+                  <td class="menu-name" th:text="${m.nama}">Nama Menu</td>
+                  <td class="menu-price" th:text="'Rp ' + ${m.harga}">Harga</td>
+                  <td>
+                    <span
+                      th:text="${m.stok} + ' Porsi'"
+                      th:classappend="${m.stok == 0} ? 'stok-habis' : 'stok-aman'"
+                    ></span>
+                  </td>
+                  <td class="action-cell">
+                    <!-- <button class="btn-action btn-edit">Edit</button> -->
+                    <a
+                      th:href="@{/admin/menu/edit/{id}(id=${m.id})}"
+                      class="btn-action btn-edit"
+                      >Edit</a
+                    >
+                    <a
+                      href="#"
+                      class="btn-action btn-delete"
+                      th:onclick="'showDeleteModal(\'' + @{/admin/menu/hapus/{id}(id=${m.id})} + '\')'"
+                      >Hapus</a
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </main>
+      </div>
+    </div>
+    <!-- Modal Konfirmasi -->
+    <div id="deleteModal" class="modal-overlay" style="display: none">
+      <div class="modal-box">
+        <h3>Konfirmasi Hapus</h3>
+        <p>Data yang dihapus tidak dapat dikembalikan. Yakin?</p>
+        <div class="modal-actions">
+          <button class="btn-cancel" onclick="closeModal()">Batal</button>
+          <a id="confirmDeleteBtn" href="#" class="btn-confirm">Ya, Hapus</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function showDeleteModal(url) {
+        document.getElementById("deleteModal").style.display = "flex";
+        document.getElementById("confirmDeleteBtn").href = url;
+      }
+
+      function closeModal() {
+        document.getElementById("deleteModal").style.display = "none";
+      }
+    </script>
+  </body>
+</html>

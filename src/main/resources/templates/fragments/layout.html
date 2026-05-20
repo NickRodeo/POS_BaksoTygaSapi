@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <!-- Sidebar Fragment -->
+  <aside th:fragment="sidebar(active)" class="sidebar">
+    <div class="sidebar-brand">
+      <img
+        th:src="@{/img/LogoBaksoTygaSapi.png}"
+        alt="Logo"
+        class="brand-logo"
+      />
+      <span class="brand-name">Bakso Tyga Sapi</span>
+    </div>
+    <nav class="sidebar-nav">
+      <span class="nav-section-title">DATA MASTER</span>
+      <a
+        href="/admin/menu"
+        th:classappend="${active == 'menu'} ? 'active' : ''"
+        class="nav-item"
+        >Kelola Menu</a
+      >
+      <a
+        href="/admin/user"
+        th:classappend="${active == 'user'} ? 'active' : ''"
+        class="nav-item"
+        >Kelola User</a
+      >
+      <div class="sidebar-divider"></div>
+      <a href="/" class="nav-item btn-back-kasir">Mode Kasir</a>
+    </nav>
+  </aside>
+
+  <!-- Topbar Fragment -->
+  <header th:fragment="topbar(adminName)" class="topbar">
+    <div class="welcome-text">
+      <h1 th:text="'Welcome, ' + ${adminName} + '!'"></h1>
+      <p>Semoga harimu menyenangkan dan warung laris manis!</p>
+    </div>
+    <div class="user-profile">
+      <div
+        class="avatar-circle"
+        th:text="${#strings.substring(adminName,0,1)}"
+      ></div>
+      <span class="user-name" th:text="${adminName}"></span>
+    </div>
+  </header>
+</html>

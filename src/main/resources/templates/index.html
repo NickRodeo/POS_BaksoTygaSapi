@@ -4,34 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>POS Bakso Tyga Sapi - Kasir</title>
+    <meta th:name="_csrf" th:content="${_csrf.token}" />
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}" />
     <link rel="stylesheet" th:href="@{/css/index.css}" />
   </head>
   <body>
-    <header class="navbar">
-      <!-- Wrapper Kiri: Logo + Nama User -->
-      <div class="navbar-left">
-        <div class="logo">
-          <img
-            th:src="@{/img/LogoBaksoTygaSapi.png}"
-            alt="Logo Bakso Tyga Sapi"
-            class="logo-img"
-          />
-        </div>
-        <!-- NAMA USER DI SEBELAH KANAN LOGO -->
-        <div class="user-profile">
-          <span class="user-label">Kasir:</span>
-          <span class="user-name">Udin</span>
-        </div>
-      </div>
-
-      <!-- Wrapper Kanan: Navigasi Links -->
-      <nav class="nav-links">
-        <!-- TAMBAHAN NAVIGASI DASHBOARD -->
-        <a href="#" class="active">Menu Kasir</a>
-        <a href="#">Laporan Transaksi</a>
-        <a href="#">Dashboard</a>
-      </nav>
-    </header>
+    <div th:replace="~{fragments/navbar :: app-navbar('menu')}"></div>
 
     <main class="main-container">
       <section class="menu-section">
@@ -63,7 +41,11 @@
 
         <div class="menu-grid">
           <!-- LOOP DATA DARI DATABASE LEWAT JAVA OBJECT -->
-          <div class="menu-card" th:each="menu : ${daftarMenu}">
+          <div
+            class="menu-card"
+            th:each="menu : ${daftarMenu}"
+            th:classappend="${menu.stok == 0} ? 'out-of-stock' : ''"
+          >
             <!-- PBO: Mengakses properti objek via Thymeleaf expressions -->
             <img
               th:src="@{/img/{gambar}(gambar=${menu.gambar != null ? menu.gambar : 'default.jpg'})}"
@@ -86,9 +68,12 @@
             <!-- Mengirimkan argumen nama dan harga ke fungsi JS saat diklik -->
             <button
               class="btn-tambah"
+              th:disabled="${menu.stok == 0}"
               th:onclick="tambahKeKeranjang([[${menu.nama}]], [[${menu.harga}]])"
             >
-              + Tambah
+              <span th:text="${menu.stok == 0} ? 'Habis' : '+ Tambah'"
+                >+ Tambah</span
+              >
             </button>
           </div>
         </div>
@@ -120,7 +105,52 @@
         </div>
       </section>
     </main>
+    <!-- ================= MODAL INPUT TUNAI MODERN ================= -->
+    <div id="modalBayar" class="modal-overlay hidden">
+      <div class="modal-card">
+        <h3>Selesaikan Pembayaran</h3>
+        <hr />
+        <div class="modal-row">
+          <span>Total Tagihan:</span>
+          <strong id="modalTotalTagihan" class="text-primary">Rp 0</strong>
+        </div>
 
+        <div class="modal-input-group">
+          <label for="inputUangTunai">Uang Tunai Diterima</label>
+          <div class="input-wrapper">
+            <span class="currency-prefix">Rp</span>
+            <input
+              type="number"
+              id="inputUangTunai"
+              placeholder="0"
+              min="0"
+              oninput="hitungKembalianOtomatis()"
+            />
+          </div>
+        </div>
+
+        <div class="modal-row">
+          <span>Kembalian:</span>
+          <span id="modalKembalian" class="text-success">Rp 0</span>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn-secondary" onclick="tutupModalBayar()">
+            Batal
+          </button>
+          <button
+            id="btnKonfirmasiBayar"
+            class="btn-primary"
+            onclick="eksekusiPembayaranKeServer()"
+          >
+            Konfirmasi & Cetak
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= WADAH NOTIFIKASI TOAST ================= -->
+    <div id="toastContainer" class="toast-container"></div>
     <script th:src="@{/js/index.js}"></script>
   </body>
 </html>

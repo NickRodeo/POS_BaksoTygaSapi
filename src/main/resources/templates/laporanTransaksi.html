@@ -4,41 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Laporan Transaksi - POS Bakso Tyga Sapi</title>
-    <link rel="stylesheet" th:href="@{/css/index.css}" href="../static/css/index.css" />
-    <link rel="stylesheet" th:href="@{/css/LaporanTransaksi.css}" href="../static/css/LaporanTransaksi.css" />
+    <link
+      rel="stylesheet"
+      th:href="@{/css/index.css}"
+      href="../static/css/index.css"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{/css/LaporanTransaksi.css}"
+      href="../static/css/LaporanTransaksi.css"
+    />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
-    <header class="navbar">
-      <div class="navbar-left">
-        <div class="logo">
-          <img 
-            th:src="@{/img/LogoBaksoTygaSapi.png}" 
-            src="../static/img/LogoBaksoTygaSapi.png" 
-            alt="Logo Bakso Tyga Sapi" 
-            class="logo-img" 
-          />
-        </div>
-        <div class="user-profile">
-          <span class="user-label">Kasir:</span>
-          <span class="user-name">Udin</span>
-        </div>
-      </div>
-
-      <nav class="nav-links">
-        <a th:href="@{/}">Menu Kasir</a>
-        <a href="#" class="active">Laporan Transaksi</a>
-        <a href="#">Dashboard</a>
-      </nav>
-    </header>
-
+    <!-- 1. SINKRONISASI NAVBAR MENGGUNAKAN TEMPLATE FRAGMENT -->
+    <!-- Mengganti navbar manual dengan fragment 'navbar' dari file fragments/navbar.html -->
+    <div th:replace="~{fragments/navbar :: app-navbar('laporan')}"></div>
     <main class="laporan-container">
       <section class="laporan-header">
-        <h2 id="judulLaporan">Ringkasan Penjualan Mingguan</h2>
+        <h2 id="judulLaporan">Membuat Laporan...</h2>
         <div class="filter-area">
-          <select class="input-select" id="periodeLaporan" onchange="ubahPeriodeData()">
-            <option value="mingguan">Laporan Mingguan</option>
-            <option value="harian">Laporan Harian (15 Mei)</option>
+          <select
+            class="input-select"
+            id="periodeLaporan"
+            onchange="ubahPeriodeData()"
+          >
+            <option value="mingguan">Laporan Minggu Ini</option>
+            <option value="harian">Laporan Hari Ini</option>
           </select>
           <button class="btn-cetak">Ekspor PDF</button>
         </div>
@@ -47,24 +39,23 @@
       <section class="stats-grid">
         <div class="stat-card">
           <span class="stat-label">Total Transaksi</span>
-          <span class="stat-value" id="angkaTransaksi">315</span>
+          <span class="stat-value" id="angkaTransaksi">-</span>
         </div>
         <div class="stat-card highlight">
           <span class="stat-label">Total Pendapatan</span>
-          <span class="stat-value" id="angkaPendapatan">Rp 14.300.000</span>
+          <span class="stat-value" id="angkaPendapatan">Rp 0</span>
         </div>
         <div class="stat-card">
           <span class="stat-label" id="judulTopMenu">5 Menu Terlaris</span>
-          <ul class="top-menu-list" id="daftarTopMenu">
-            </ul>
+          <ul class="top-menu-list" id="daftarTopMenu"></ul>
         </div>
       </section>
 
       <section class="chart-section">
-          <h3 id="judulGrafik">Grafik Tren Penjualan</h3>
-          <div class="chart-container">
-              <canvas id="grafikPenjualan"></canvas>
-          </div>
+        <h3 id="judulGrafik">Grafik Tren Penjualan</h3>
+        <div class="chart-container">
+          <canvas id="grafikPenjualan"></canvas>
+        </div>
       </section>
 
       <section class="table-section">
@@ -79,128 +70,88 @@
               <th>Status</th>
             </tr>
           </thead>
-          <tbody id="tabelRiwayat">
-            </tbody>
+          <tbody id="tabelRiwayat"></tbody>
         </table>
       </section>
     </main>
 
     <script>
-      // DATABASE DUMMY YANG SINKRON & RELEVAN
-      const dataDummy = {
-        mingguan: {
-          judul: "Ringkasan Penjualan Mingguan",
-          topMenuJudul: "5 Menu Terlaris (Minggu Ini)",
-          judulGrafik: "Grafik Tren Penjualan Minggu Ini (11-17 Mei)",
-          judulTabel: "Seluruh Transaksi Minggu Ini",
-          totalTransaksi: "315",
-          totalPendapatan: "Rp 14.300.000",
-          topMenu: [
-            "<li><span>1. Bakso Iga Istimewah</span> <span class='qty'>120 porsi</span></li>",
-            "<li><span>2. Bakso Iga Biasa</span> <span class='qty'>95 porsi</span></li>",
-            "<li><span>3. Es Teh Manis</span> <span class='qty'>180 gelas</span></li>",
-            "<li><span>4. Es Jeruk</span> <span class='qty'>85 gelas</span></li>",
-            "<li><span>5. Kerupuk Pangsit</span> <span class='qty'>50 bungkus</span></li>"
-          ],
-          grafik: {
-            label: 'Pendapatan Harian (Rp)',
-            labels: ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'],
-            data: [1200000, 1500000, 1300000, 1800000, 2500000, 3850000, 2150000]
-          },
-          tabel: `
-            <tr><td>#TR-315</td><td>15 Mei, 20:15</td><td>2x Bakso Iga, 2x Es Teh Manis</td><td>Rp 90.000</td><td><span class="badge success">Selesai</span></td></tr>
-            <tr><td>#TR-314</td><td>15 Mei, 19:50</td><td>1x Bakso Iga Istimewah, 1x Es Teh Manis</td><td>Rp 57.000</td><td><span class="badge success">Selesai</span></td></tr>
-            <tr><td>#TR-290</td><td>14 Mei, 13:20</td><td>4x Bakso Iga Biasa</td><td>Rp 160.000</td><td><span class="badge success">Selesai</span></td></tr>
-            <tr><td>#TR-250</td><td>13 Mei, 18:45</td><td>10x Bakso Iga Istimewah (Catering)</td><td>Rp 520.000</td><td><span class="badge success">Selesai</span></td></tr>
-            <tr><td>#TR-180</td><td>12 Mei, 12:10</td><td>2x Bakso Mie, 2x Es Jeruk</td><td>Rp 72.000</td><td><span class="badge success">Selesai</span></td></tr>
-            <tr><td>#TR-105</td><td>11 Mei, 10:30</td><td>1x Bakso Iga Biasa, 1x Es Teh</td><td>Rp 45.000</td><td><span class="badge success">Selesai</span></td></tr>
-            <tr><td>#TR-050</td><td>10 Mei, 21:00</td><td>5x Bakso Iga, 5x Es Jeruk</td><td>Rp 240.000</td><td><span class="badge success">Selesai</span></td></tr>
-          `
-        },
-        harian: {
-          judul: "Ringkasan Penjualan Harian (Minggu, 15 Mei)",
-          topMenuJudul: "5 Menu Terlaris (Hari Ini)",
-          judulGrafik: "Grafik Tren Penjualan Hari Ini (Per 2 Jam)",
-          judulTabel: "Seluruh Transaksi Hari Ini (15 Mei)",
-          totalTransaksi: "45",
-          totalPendapatan: "Rp 2.150.000",
-          topMenu: [
-            "<li><span>1. Bakso Iga Istimewah</span> <span class='qty'>18 porsi</span></li>",
-            "<li><span>2. Bakso Iga Biasa</span> <span class='qty'>15 porsi</span></li>",
-            "<li><span>3. Es Teh Manis</span> <span class='qty'>30 gelas</span></li>",
-            "<li><span>4. Es Jeruk</span> <span class='qty'>12 gelas</span></li>",
-            "<li><span>5. Tahu Bakso</span> <span class='qty'>10 porsi</span></li>"
-          ],
-          grafik: {
-            label: 'Pendapatan Per Jam (Rp)',
-            labels: ['10:00', '12:00', '14:00', '16:00', '18:00', '20:00'],
-            data: [250000, 450000, 300000, 250000, 600000, 300000]
-          },
-          tabel: `
-            <tr><td>#TR-315</td><td>20:15</td><td>2x Bakso Iga, 2x Es Teh Manis</td><td>Rp 90.000</td><td><span class="badge success">Selesai</span></td></tr>
-            <tr><td>#TR-314</td><td>19:50</td><td>1x Bakso Iga Istimewah, 1x Es Teh Manis</td><td>Rp 57.000</td><td><span class="badge success">Selesai</span></td></tr>
-            <tr><td>#TR-313</td><td>19:30</td><td>3x Bakso Iga, 3x Es Teh Manis</td><td>Rp 135.000</td><td><span class="badge success">Selesai</span></td></tr>
-            <tr><td>#TR-312</td><td>19:15</td><td>2x Bakso Iga Istimewah</td><td>Rp 104.000</td><td><span class="badge danger">Batal</span></td></tr>
-            <tr><td>#TR-311</td><td>18:45</td><td>1x Bakso Iga, 1x Es Jeruk</td><td>Rp 48.000</td><td><span class="badge success">Selesai</span></td></tr>
-            <tr><td>#TR-310</td><td>18:10</td><td>4x Bakso Iga Biasa, 4x Es Teh</td><td>Rp 180.000</td><td><span class="badge success">Selesai</span></td></tr>
-            <tr><td>#TR-305</td><td>16:30</td><td>2x Bakso Mie, 2x Es Jeruk</td><td>Rp 72.000</td><td><span class="badge success">Selesai</span></td></tr>
-            <tr><td>#TR-300</td><td>14:20</td><td>1x Bakso Iga Istimewah</td><td>Rp 52.000</td><td><span class="badge success">Selesai</span></td></tr>
-          `
-        }
-      };
-
       let chartInstance = null;
 
+      // 2. LOGIKA RENDER GRAFIK CHART.JS
       function renderGrafik(grafikData) {
-        const ctx = document.getElementById('grafikPenjualan').getContext('2d');
+        const ctx = document.getElementById("grafikPenjualan").getContext("2d");
         if (chartInstance != null) chartInstance.destroy();
-        
+
         chartInstance = new Chart(ctx, {
-            type: 'bar', 
-            data: {
-                labels: grafikData.labels,
-                datasets: [{
-                    label: grafikData.label,
-                    data: grafikData.data,
-                    backgroundColor: '#ffcc00', 
-                    borderColor: '#b30000', 
-                    borderWidth: 1,
-                    borderRadius: 5 
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: (value) => value >= 1000000 ? 'Rp ' + (value/1000000) + ' Jt' : 'Rp ' + (value/1000) + ' Rb'
-                        }
-                    }
+          type: "bar",
+          data: {
+            labels: grafikData.labels,
+            datasets: [
+              {
+                label: grafikData.label,
+                data: grafikData.data,
+                backgroundColor: "#ffcc00",
+                borderColor: "#b30000",
+                borderWidth: 1,
+                borderRadius: 5,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  callback: (value) =>
+                    value >= 1000000
+                      ? "Rp " + value / 1000000 + " Jt"
+                      : "Rp " + value / 1000 + " Rb",
                 },
-                plugins: { legend: { display: false } }
-            }
+              },
+            },
+            plugins: { legend: { display: false } },
+          },
         });
       }
 
+      // 3. LOGIKA AMBIL DATA DARI BACKEND DATABASE (AJAX FETCH)
       function ubahPeriodeData() {
-        const periode = document.getElementById('periodeLaporan').value;
-        const data = dataDummy[periode];
+        const periode = document.getElementById("periodeLaporan").value;
 
-        document.getElementById('judulLaporan').innerText = data.judul;
-        document.getElementById('angkaTransaksi').innerText = data.totalTransaksi;
-        document.getElementById('angkaPendapatan').innerText = data.totalPendapatan;
-        document.getElementById('judulTopMenu').innerText = data.topMenuJudul;
-        document.getElementById('daftarTopMenu').innerHTML = data.topMenu.join('');
-        document.getElementById('judulTabel').innerText = data.judulTabel;
-        document.getElementById('tabelRiwayat').innerHTML = data.tabel;
-        document.getElementById('judulGrafik').innerText = data.judulGrafik;
-        
-        renderGrafik(data.grafik);
+        // Tembak ke endpoint LaporanController yang baru dipisah
+        fetch(`/laporan/api?periode=${periode}`)
+          .then((response) => response.json())
+          .then((data) => {
+            document.getElementById("judulLaporan").innerText = data.judul;
+            document.getElementById("angkaTransaksi").innerText =
+              data.totalTransaksi;
+            document.getElementById("angkaPendapatan").innerText =
+              data.totalPendapatan;
+            document.getElementById("judulTopMenu").innerText =
+              data.topMenuJudul;
+
+            document.getElementById("daftarTopMenu").innerHTML =
+              data.topMenu.join("");
+
+            document.getElementById("judulTabel").innerText = data.judulTabel;
+
+            // FIX
+            document.getElementById("tabelRiwayat").innerHTML =
+              data.tabel.join("");
+
+            document.getElementById("judulGrafik").innerText = data.judulGrafik;
+
+            renderGrafik(data.grafik);
+          })
+          .catch((error) => {
+            console.error("Gagal memuat data laporan:", error);
+          });
       }
-
-      document.addEventListener('DOMContentLoaded', ubahPeriodeData);
+      // Load data otomatis saat pertama kali halaman terbuka
+      document.addEventListener("DOMContentLoaded", ubahPeriodeData);
     </script>
   </body>
 </html>

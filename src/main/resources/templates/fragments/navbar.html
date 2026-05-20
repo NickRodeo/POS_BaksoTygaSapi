@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head></head>
+  <body>
+    <!-- Mendefinisikan Fragment Navbar dengan parameter activePage -->
+    <header th:fragment="app-navbar(activePage)" class="navbar">
+      <!-- Wrapper Kiri: Logo + Nama User -->
+      <div class="navbar-left">
+        <div class="logo">
+          <img
+            th:src="@{/img/LogoBaksoTygaSapi.png}"
+            alt="Logo Bakso Tyga Sapi"
+            class="logo-img"
+          />
+        </div>
+        <div class="user-profile" sec:authorize="isAuthenticated()">
+          <span class="user-label" sec:authorize="hasRole('ADMIN')"
+            >Admin:</span
+          >
+
+          <!-- JIKA USER BUKAN ADMIN (MISALNYA KASIR) -->
+          <span class="user-label" sec:authorize="!hasRole('ADMIN')"
+            >Kasir:</span
+          >
+          <span class="user-name" sec:authentication="name">Udin</span>
+        </div>
+      </div>
+
+      <!-- Wrapper Kanan: Navigasi Links -->
+      <nav class="nav-links">
+        <!-- Semua User Terautentikasi bisa melihat Menu Kasir -->
+        <a
+          th:href="@{/}"
+          th:classappend="${activePage == 'menu'} ? 'active' : ''"
+          >Menu Kasir</a
+        >
+
+        <a
+          th:href="@{/laporan}"
+          th:classappend="${activePage == 'laporan'} ? 'active' : ''"
+          >Laporan Transaksi</a
+        >
+
+        <!-- 1. HANYA ROLE ADMIN YANG BISA MELIHAT DASHBOARD -->
+        <a
+          th:href="@{/admin/menu}"
+          sec:authorize="hasRole('ADMIN')"
+          th:classappend="${activePage == 'dashboard'} ? 'active' : ''"
+          >Dashboard</a
+        >
+
+        <!-- Tombol Logout -->
+        <form
+          th:action="@{/logout}"
+          method="POST"
+          style="margin: 0; display: inline-block; margin-left: 20px"
+        >
+          <button type="submit" class="btn-logout">Logout</button>
+        </form>
+      </nav>
+    </header>
+  </body>
+</html>

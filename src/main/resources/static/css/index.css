@@ -454,3 +454,351 @@ body {
 .menu-card.hidden-menu {
   display: none !important;
 }
+
+/* Button Logout di dalam Navbar */
+.btn-logout {
+  background-color: transparent;
+  color: #ffffff;
+  border: 0px solid rgba(255, 255, 255, 0.5);
+  font-weight: 500;
+  font-size: 16px;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-logout:hover {
+  background-color: #ffcc00;
+  color: #b30000;
+  border-color: #ffcc00;
+}
+
+/* Styling Modal Bayar */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: all 0.3s ease;
+}
+.modal-overlay.hidden {
+  display: none;
+}
+.modal-card {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+.modal-card h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: #333;
+}
+.modal-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 16px 0;
+  font-size: 1.1rem;
+}
+.modal-input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+.modal-input-group label {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 6px;
+}
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+.input-wrapper:focus-within {
+  border-color: #ff6b6b;
+} /* Sesuaikan warna tema kasir */
+.currency-prefix {
+  font-weight: bold;
+  color: #888;
+  margin-right: 6px;
+}
+.input-wrapper input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+.modal-actions button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.btn-primary {
+  background: #2ecc71;
+  color: white;
+}
+.btn-secondary {
+  background: #e0e0e0;
+  color: #333;
+}
+.text-primary {
+  color: #e67e22;
+  font-size: 1.3rem;
+}
+.text-success {
+  font-weight: bold;
+}
+
+/* Styling Toast Notification */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: all 0.3s ease;
+}
+
+.modal-overlay.hidden {
+  display: none !important;
+}
+
+.modal-card {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border-top: 6px solid #b30000; /* Garis merah atas khas tema */
+}
+
+.modal-card h3 {
+  margin-top: 0;
+  margin-bottom: 6px;
+  color: #b30000; /* Judul Merah */
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.modal-card hr {
+  border: 0;
+  height: 1px;
+  background: #cbd5e1;
+  margin-bottom: 16px;
+}
+
+.modal-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 14px 0;
+  font-size: 15px;
+  color: #475569;
+}
+
+.modal-input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.modal-input-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 6px;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  border: 2px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 10px 14px;
+  background: #f8fafc;
+  transition: border-color 0.2s;
+}
+
+.input-wrapper:focus-within {
+  border-color: #b30000; /* Border merah saat ngetik uang */
+  background: #ffffff;
+}
+
+.currency-prefix {
+  font-weight: bold;
+  color: #64748b;
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.input-wrapper input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  background: transparent;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.modal-actions button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+/* Tombol Aksi Modal */
+.modal-actions .btn-primary {
+  background: #b30000;
+  color: white;
+  flex: 2;
+}
+
+.modal-actions .btn-primary:hover {
+  background: #8b0000;
+}
+
+.modal-actions .btn-primary:disabled {
+  background: #cbd5e1;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.modal-actions .btn-secondary {
+  background: #f1f5f9;
+  color: #475569;
+  flex: 1;
+}
+
+.modal-actions .btn-secondary:hover {
+  background: #e2e8f0;
+}
+
+/* State text dinamis kembalian & tagihan */
+.text-primary {
+  color: #b30000 !important;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.text-success {
+  font-weight: 700;
+  color: #10b981; /* Hijau sukses standard saldo */
+  font-size: 16px;
+}
+
+/* WADAH NOTIFIKASI TOAST */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toast {
+  background: #ffffff;
+  color: #1e293b;
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-left: 5px solid #cbd5e1;
+  min-width: 280px;
+  animation: slideIn 0.3s ease-out forwards;
+}
+
+.toast.success {
+  border-left-color: #10b981; /* Garis hijau sukses */
+  background: #f0fdf4;
+}
+
+.toast.error {
+  border-left-color: #b30000; /* Garis merah error khas warung */
+  background: #fef2f2;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Gaya dasar untuk card yang stoknya habis */
+.menu-card.out-of-stock {
+  opacity: 0.6;
+  filter: grayscale(1); /* Membuat gambar jadi hitam putih */
+  pointer-events: none; /* Tidak bisa diklik sama sekali */
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+/* Gaya tombol saat disable */
+.btn-tambah:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Opsional: Tambahkan label "Stok Habis" di atas gambar */
+.out-of-stock::after {
+  content: "STOK HABIS";
+  position: absolute;
+  top: 50px;
+  left: 20px;
+  background: #b30000;
+  color: white;
+  padding: 5px 10px;
+  font-weight: bold;
+  border-radius: 4px;
+  font-size: 12px;
+}

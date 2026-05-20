@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Menu - POS Bakso Tyga Sapi</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}" />
+    <link rel="stylesheet" th:href="@{/css/tambahMenu.css}" />
+  </head>
+  <body>
+    <main class="form-wrapper">
+      <div class="form-card">
+        <h2>Edit Menu</h2>
+
+        <!-- Form Binding ke objek menu -->
+        <form
+          th:action="@{/admin/menu/edit/{id}(id=${menu.id})}"
+          th:object="${menu}"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+          <div class="form-group">
+            <label for="nama">Nama Menu / Varian Bakso</label>
+            <input
+              type="text"
+              id="nama"
+              name="nama"
+              th:field="*{nama}"
+              placeholder="Contoh: Bakso Telur Puyuh"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="harga">Harga Jual (Rp)</label>
+            <input
+              type="number"
+              id="harga"
+              name="harga"
+              th:field="*{harga}"
+              placeholder="Contoh: 18000"
+              min="0"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="stok">Stok di Dapur</label>
+            <input
+              type="number"
+              id="stok"
+              name="stok"
+              th:field="*{stok}"
+              placeholder="Contoh: 100"
+              min="0"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="gambarFile">Ganti Foto Produk (Opsional)</label>
+            <input
+              type="file"
+              id="gambarFile"
+              name="gambarFile"
+              accept="image/*"
+              onchange="tampilkanPreview(this)"
+            />
+
+            <!-- Preview gambar saat ini dari database -->
+            <div
+              class="image-preview-container"
+              id="previewContainer"
+              style="display: block"
+            >
+              <img
+                id="imagePreview"
+                th:src="@{'/img/' + ${menu.gambar}}"
+                alt="Foto Menu Saat Ini"
+              />
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <!-- Kembali ke dashboard/admin -->
+            <a href="/admin/menu" class="btn-kembali-kasir">Batal</a>
+            <button type="submit" class="btn-simpan">Simpan Perubahan</button>
+          </div>
+        </form>
+      </div>
+    </main>
+    <script th:src="@{/js/tambahMenu.js}"></script>
+  </body>
+</html>
