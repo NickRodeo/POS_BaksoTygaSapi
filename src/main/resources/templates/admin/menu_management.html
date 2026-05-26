@@ -44,7 +44,9 @@
                 <tr th:each="m : ${menus}">
                   <td>
                     <img
-                      th:src="@{'/img/' + ${m.gambar}}"
+                      th:src="${m.gambar != null and !#strings.isEmpty(m.gambar)}
+           ? @{'/img/' + ${m.gambar}}
+           : @{/img/default.jpg}"
                       class="menu-img-thumb"
                     />
                   </td>

@@ -67,16 +67,17 @@ public class TransaksiController {
                 detail.setHargaSatuan(Double.parseDouble(item.get("hargaSatuan").toString()));
                 detail.setSubtotalItem(Double.parseDouble(item.get("subtotalItem").toString()));
                 detail.setTransaksi(trx);
-                System.out.println("id : " + detail.getId());
-                System.out.println("qty : " + detail.getQty());
-                System.out.println("subtotal : " + detail.getSubtotalItem());
-                System.out.println("transaksi : " + detail.getTransaksi());
                 trx.getDetails().add(detail);
             }
             System.out.println("Jumlah detail sebelum save: " + trx.getDetails().size());
             transaksiRepository.save(trx);
             transaksiRepository.flush();
-
+            for (TransaksiDetail d : trx.getDetails()) {
+                System.out.println("id : " + d.getId());
+                System.out.println("qty : " + d.getQty());
+                System.out.println("subtotal : " + d.getSubtotalItem());
+                System.out.println("transaksi : " + d.getTransaksi());
+            }
             return Map.of("success", true, "redirectUrl", "/transaksi/struk/" + trx.getNoTrx());
             
         } catch (Exception e) {

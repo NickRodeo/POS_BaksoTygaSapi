@@ -15,6 +15,7 @@
       href="../static/css/LaporanTransaksi.css"
     />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   </head>
   <body>
     <!-- 1. SINKRONISASI NAVBAR MENGGUNAKAN TEMPLATE FRAGMENT -->
@@ -32,7 +33,7 @@
             <option value="mingguan">Laporan Minggu Ini</option>
             <option value="harian">Laporan Hari Ini</option>
           </select>
-          <button class="btn-cetak">Ekspor PDF</button>
+          <button class="btn-cetak" id="btnExportPdf">Ekspor PDF</button>
         </div>
       </section>
 
@@ -152,6 +153,31 @@
       }
       // Load data otomatis saat pertama kali halaman terbuka
       document.addEventListener("DOMContentLoaded", ubahPeriodeData);
+      document
+        .getElementById("btnExportPdf")
+        .addEventListener("click", exportPDF);
+
+      function exportPDF() {
+        const element = document.querySelector(".laporan-container");
+
+        const opt = {
+          margin: 0.5,
+          filename: "laporan-transaksi.pdf",
+          image: { type: "jpeg", quality: 1 },
+          html2canvas: {
+            scale: 2,
+            useCORS: true,
+          },
+          jsPDF: {
+            unit: "in",
+            format: "a4",
+            orientation: "portrait",
+          },
+          pagebreak: { mode: ["avoid-all", "css", "legacy"] },
+        };
+
+        html2pdf().set(opt).from(element).save();
+      }
     </script>
   </body>
 </html>
